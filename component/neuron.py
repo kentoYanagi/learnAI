@@ -1,17 +1,21 @@
-from utils import sigmoid
+from .utils import sigmoid
 
 # Neuron
 class Neuron:
     def __init__(self):
         self.input_sum = 0.0
         self.output = 0.0
-
+ 
     def set_input(self, input_value):
         self.input_sum += input_value
     
     def get_output(self):
         self.output = sigmoid(self.input_sum)
         return self.output
+
+    def reset(self):
+        self.input_sum = 0.0
+        self.output = 0.0
 
 if __name__ == "__main__":
     neuron = Neuron()
