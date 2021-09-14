@@ -40,6 +40,28 @@ class NeuralNetwork:
         
         return  self.output_layer[0].get_output()
 
+    def train(self, correct_value):
+        # 学習係数
+        k = 0.3
+
+        # 出力
+        output_layer_output = self.output_layer[0].output
+        middle_layer_outputs = [self.middle_layer[0].output, self.middle_layer[1].output];
+
+        # 誤差の計算   # (結果 - 正しい値) * 活性化関数の微分
+        delta_output = (output_layer_output - correct_value) * output_layer_output * (1.0 - output_layer_output)
+
+        # パラメータの更新
+        # 重みの修正
+        # 重み  - 学習係数  *  誤差 * 出力
+        for i in range(2):
+            self.middle_to_output_weight[0][i] -= k * delta_output * middle_layer_outputs[i]
+        # バイアスの修正
+        # バイアス  - 学習係数  *  誤差
+        self.output_bias[0] -= k * delta_output
+
+    
+
 if __name__ == "__main__":
     from random import randint
     neural_network = NeuralNetwork()
